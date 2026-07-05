@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    /* Self-hosted Inter (see @fontsource-variable/inter) exposed as a token */
+    --font-inter: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-white antialiased;
+    background-image:
+      radial-gradient(60% 40% at 50% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 70%),
+      radial-gradient(40% 30% at 100% 10%, rgba(6, 182, 212, 0.06) 0%, transparent 70%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-brand-600/40 text-white;
+  }
+}
+
+@layer components {
+  /* Gradient heading text */
+  .text-gradient {
+    @apply bg-heading-gradient bg-clip-text text-transparent;
+  }
+
+  .text-brand-gradient {
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Glassy card surface used across sections */
+  .glass-card {
+    @apply relative rounded-card border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm;
+  }
+
+  .glass-card-hover {
+    @apply transition-colors duration-300 hover:border-brand-500/30 hover:bg-white/[0.05];
+  }
+
+  /* Section vertical rhythm */
+  .section {
+    @apply relative py-20 md:py-28;
+  }
+}
+
+@layer utilities {
+  .focus-ring {
+    @apply outline-none ring-offset-2 ring-offset-background focus-visible:ring-2 focus-visible:ring-brand-500;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Thin custom scrollbar for inner scroll areas */
+  .scroll-slim::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scroll-slim::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-white/10;
+  }
+}
